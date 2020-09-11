@@ -3,7 +3,7 @@
     "name": "calions-app/elm-placeholder-loading",
     "summary": "Easily create placeholder loadings like Facebook's cards loading",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "exposed-modules": [
         "PlaceholderLoading",
         "PlaceholderLoading.BulletList",
