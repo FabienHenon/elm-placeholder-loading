@@ -2,7 +2,7 @@
 
 Easily create placeholder loadings like Facebook's cards loading.
 
-![Facebook loader](facebook-loading.png)
+![Facebook loader](facebook-loader.png)
 
 ```
 elm install calions-app/elm-placeholder-loading
@@ -62,6 +62,23 @@ FacebookLoader.view
 
 This will display the Facebook's loader with different colors and animation speed and in Right To Left display
 
+### Repeated loaders
+
+You can also repeat the loaders the number of times you want by simply add the configuration `repeat`:
+
+```elm
+ListLoader.view
+    (Loading.config
+        |> Loading.uniqueKey "list-repeated"
+        |> Loading.repeat 3
+        |> Loading.loaderAttributes [ HtmlAttr.style "margin-bottom" "1rem" ]
+    )
+```
+
+![Repeated list loader](repeated-list-loader.png)
+
+This will display the list loader 3 times. This way you can simulate a longer content to come
+
 <a id="preset-custom"></a>
 ## Custom loader
 
@@ -115,34 +132,34 @@ loader =
 
 This will show the following loader:
 
-![Custom loader](custom-loading.png)
+![Custom loader](custom-loader.png)
 
 ## Presets
 
 <a id="preset-facebook"></a>
 ### Facebook
 
-![Facebook loader](facebook-loading.png)
+![Facebook loader](facebook-loader.png)
 
 <a id="preset-instagram"></a>
 ### Instagram
 
-![Instagram loader](instagram-loading.png)
+![Instagram loader](instagram-loader.png)
 
 <a id="preset-bullet-list"></a>
 ### Bullet list
 
-![Bullet list loader](bullet-list-loading.png)
+![Bullet list loader](bullet-list-loader.png)
 
 <a id="preset-list"></a>
 ### List
 
-![List loader](list-loading.png)
+![List loader](list-loader.png)
 
 <a id="preset-code"></a>
 ### Code
 
-![Code loader](code-loading.png)
+![Code loader](code-loader.png)
 
 ## Examples
 

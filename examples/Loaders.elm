@@ -2,6 +2,7 @@ module Loaders exposing (main)
 
 import Browser
 import Html exposing (Html, div, h1, text)
+import Html.Attributes as HtmlAttr
 import PlaceholderLoading as Loading
 import PlaceholderLoading.BulletList as BulletListLoader
 import PlaceholderLoading.Code as CodeLoader
@@ -92,9 +93,18 @@ view model =
                 )
             ]
         , div []
+            [ h1 [] [ text "Repeated list loader" ]
+            , ListLoader.view
+                (Loading.config
+                    |> Loading.uniqueKey "list-repeated"
+                    |> Loading.repeat 3
+                    |> Loading.loaderAttributes [ HtmlAttr.style "margin-bottom" "1rem" ]
+                )
+            ]
+        , div []
             [ h1 [] [ text "Custom config" ]
-            , FacebookLoader.view 
-                (Loading.config 
+            , FacebookLoader.view
+                (Loading.config
                     |> Loading.uniqueKey "facebook-custom"
                     |> Loading.backgroundColor "#00f"
                     |> Loading.backgroundOpacity 0.5

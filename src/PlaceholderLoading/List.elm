@@ -1,11 +1,12 @@
 module PlaceholderLoading.List exposing (view)
 
+import Html
 import PlaceholderLoading as PlaceholderLoading
 import Svg
 import Svg.Attributes as SvgAttr
 
 
-view : PlaceholderLoading.Config msg -> Svg.Svg msg
+view : PlaceholderLoading.Config msg -> Html.Html msg
 view config =
     PlaceholderLoading.customView
         (config

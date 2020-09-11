@@ -12,12 +12,16 @@ module PlaceholderLoading exposing
     , foregroundOpacity
     , gradientRatio
     , interval
+    , loaderAttributes
+    , mainAttributes
+    , repeat
     , rtl
     , speed
     , title
     , uniqueKey
     )
 
+import Html
 import Internals.Config as Config
 import Svg
 import Svg.Attributes as SvgAttr
@@ -39,6 +43,9 @@ config =
         , foregroundOpacity = 1
         , gradientRatio = 2
         , interval = 0.25
+        , loaderAttributes = []
+        , mainAttributes = []
+        , repeat = 1
         , rtl = False
         , speed = 1.2
         , title = Nothing
@@ -86,6 +93,11 @@ interval v (Config config_) =
     Config { config_ | interval = v }
 
 
+repeat : Int -> Config msg -> Config msg
+repeat v (Config config_) =
+    Config { config_ | repeat = v }
+
+
 rtl : Bool -> Config msg -> Config msg
 rtl v (Config config_) =
     Config { config_ | rtl = v }
@@ -116,7 +128,17 @@ uniqueKey v (Config config_) =
     Config { config_ | uniqueKey = v }
 
 
-customView : Config msg -> List (Svg.Svg msg) -> Svg.Svg msg
+mainAttributes : List (Html.Attribute msg) -> Config msg -> Config msg
+mainAttributes v (Config config_) =
+    Config { config_ | mainAttributes = v }
+
+
+loaderAttributes : List (Html.Attribute msg) -> Config msg -> Config msg
+loaderAttributes v (Config config_) =
+    Config { config_ | loaderAttributes = v }
+
+
+customView : Config msg -> List (Svg.Svg msg) -> Html.Html msg
 customView (Config config_) content =
     let
         fixedId =
@@ -141,81 +163,89 @@ customView (Config config_) content =
             else
                 ""
     in
-    Svg.svg config_.attributes
-        ((case config_.title of
-            Just title_ ->
-                Svg.title [] [ Svg.text title_ ]
+    Html.div config_.mainAttributes
+        (List.range 0 (config_.repeat - 1)
+            |> List.map
+                (\r ->
+                    Html.div config_.loaderAttributes
+                        [ Svg.svg config_.attributes
+                            ((case config_.title of
+                                Just title_ ->
+                                    Svg.title [] [ Svg.text title_ ]
 
-            Nothing ->
-                Svg.text ""
-         )
-            :: [ Svg.rect
-                    [ SvgAttr.x "0"
-                    , SvgAttr.y "0"
-                    , SvgAttr.width "100%"
-                    , SvgAttr.height "100%"
-                    , SvgAttr.clipPath ("url(" ++ config_.baseUrl ++ "#" ++ idClip ++ ")")
-                    , SvgAttr.style ("fill: url(" ++ config_.baseUrl ++ "#" ++ idGradient ++ ")" ++ rtlStyle)
-                    ]
-                    []
-               , Svg.defs []
-                    [ Svg.clipPath [ SvgAttr.id idClip ] content
-                    , Svg.linearGradient [ SvgAttr.id idGradient ]
-                        [ Svg.stop
-                            [ SvgAttr.offset "0%"
-                            , SvgAttr.stopColor config_.backgroundColor
-                            , SvgAttr.stopOpacity (String.fromFloat config_.backgroundOpacity)
-                            ]
-                            [ if config_.animate then
-                                Svg.animate
-                                    [ SvgAttr.attributeName "offset"
-                                    , SvgAttr.values (String.fromFloat (config_.gradientRatio * -1) ++ "; " ++ String.fromFloat (config_.gradientRatio * -1) ++ "; 1")
-                                    , SvgAttr.keyTimes keyTimes
-                                    , SvgAttr.dur dur
-                                    , SvgAttr.repeatCount "indefinite"
-                                    ]
-                                    []
+                                Nothing ->
+                                    Svg.text ""
+                             )
+                                :: [ Svg.rect
+                                        [ SvgAttr.x "0"
+                                        , SvgAttr.y "0"
+                                        , SvgAttr.width "100%"
+                                        , SvgAttr.height "100%"
+                                        , SvgAttr.clipPath ("url(" ++ config_.baseUrl ++ "#" ++ idClip ++ ")")
+                                        , SvgAttr.style ("fill: url(" ++ config_.baseUrl ++ "#" ++ idGradient ++ ")" ++ rtlStyle)
+                                        ]
+                                        []
+                                   , Svg.defs []
+                                        [ Svg.clipPath [ SvgAttr.id idClip ] content
+                                        , Svg.linearGradient [ SvgAttr.id idGradient ]
+                                            [ Svg.stop
+                                                [ SvgAttr.offset "0%"
+                                                , SvgAttr.stopColor config_.backgroundColor
+                                                , SvgAttr.stopOpacity (String.fromFloat config_.backgroundOpacity)
+                                                ]
+                                                [ if config_.animate then
+                                                    Svg.animate
+                                                        [ SvgAttr.attributeName "offset"
+                                                        , SvgAttr.values (String.fromFloat (config_.gradientRatio * -1) ++ "; " ++ String.fromFloat (config_.gradientRatio * -1) ++ "; 1")
+                                                        , SvgAttr.keyTimes keyTimes
+                                                        , SvgAttr.dur dur
+                                                        , SvgAttr.repeatCount "indefinite"
+                                                        ]
+                                                        []
 
-                              else
-                                Svg.text ""
-                            ]
-                        , Svg.stop
-                            [ SvgAttr.offset "50%"
-                            , SvgAttr.stopColor config_.foregroundColor
-                            , SvgAttr.stopOpacity (String.fromFloat config_.foregroundOpacity)
-                            ]
-                            [ if config_.animate then
-                                Svg.animate
-                                    [ SvgAttr.attributeName "offset"
-                                    , SvgAttr.values (String.fromFloat (config_.gradientRatio * -1 / 2) ++ "; " ++ String.fromFloat (config_.gradientRatio * -1 / 2) ++ "; " ++ String.fromFloat (config_.gradientRatio / 2 + 1))
-                                    , SvgAttr.keyTimes keyTimes
-                                    , SvgAttr.dur dur
-                                    , SvgAttr.repeatCount "indefinite"
-                                    ]
-                                    []
+                                                  else
+                                                    Svg.text ""
+                                                ]
+                                            , Svg.stop
+                                                [ SvgAttr.offset "50%"
+                                                , SvgAttr.stopColor config_.foregroundColor
+                                                , SvgAttr.stopOpacity (String.fromFloat config_.foregroundOpacity)
+                                                ]
+                                                [ if config_.animate then
+                                                    Svg.animate
+                                                        [ SvgAttr.attributeName "offset"
+                                                        , SvgAttr.values (String.fromFloat (config_.gradientRatio * -1 / 2) ++ "; " ++ String.fromFloat (config_.gradientRatio * -1 / 2) ++ "; " ++ String.fromFloat (config_.gradientRatio / 2 + 1))
+                                                        , SvgAttr.keyTimes keyTimes
+                                                        , SvgAttr.dur dur
+                                                        , SvgAttr.repeatCount "indefinite"
+                                                        ]
+                                                        []
 
-                              else
-                                Svg.text ""
-                            ]
-                        , Svg.stop
-                            [ SvgAttr.offset "100%"
-                            , SvgAttr.stopColor config_.backgroundColor
-                            , SvgAttr.stopOpacity (String.fromFloat config_.backgroundOpacity)
-                            ]
-                            [ if config_.animate then
-                                Svg.animate
-                                    [ SvgAttr.attributeName "offset"
-                                    , SvgAttr.values ("0; 0; " ++ String.fromFloat (1 + config_.gradientRatio))
-                                    , SvgAttr.keyTimes keyTimes
-                                    , SvgAttr.dur dur
-                                    , SvgAttr.repeatCount "indefinite"
-                                    ]
-                                    []
+                                                  else
+                                                    Svg.text ""
+                                                ]
+                                            , Svg.stop
+                                                [ SvgAttr.offset "100%"
+                                                , SvgAttr.stopColor config_.backgroundColor
+                                                , SvgAttr.stopOpacity (String.fromFloat config_.backgroundOpacity)
+                                                ]
+                                                [ if config_.animate then
+                                                    Svg.animate
+                                                        [ SvgAttr.attributeName "offset"
+                                                        , SvgAttr.values ("0; 0; " ++ String.fromFloat (1 + config_.gradientRatio))
+                                                        , SvgAttr.keyTimes keyTimes
+                                                        , SvgAttr.dur dur
+                                                        , SvgAttr.repeatCount "indefinite"
+                                                        ]
+                                                        []
 
-                              else
-                                Svg.text ""
-                            ]
+                                                  else
+                                                    Svg.text ""
+                                                ]
+                                            ]
+                                        ]
+                                   ]
+                            )
                         ]
-                    ]
-               ]
+                )
         )
