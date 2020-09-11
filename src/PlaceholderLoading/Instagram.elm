@@ -2,7 +2,7 @@ module PlaceholderLoading.Instagram exposing (view)
 
 {-| Display an Instagram loader
 
-![Instagram loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/instagram-loader.png)
+![Instagram loader](https://raw.githubusercontent.com/calions-app/elm-placeholder-loading/master/instagram-loader.png)
 
 
 # View
