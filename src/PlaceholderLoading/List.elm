@@ -1,11 +1,27 @@
 module PlaceholderLoading.List exposing (view)
 
+{-| Display a list loader
+
+![List loader](../../list-loader.png)
+
+
+# View
+
+@docs view
+
+-}
+
 import Html
 import PlaceholderLoading as PlaceholderLoading
 import Svg
 import Svg.Attributes as SvgAttr
 
 
+{-| Shows the loader with the specified configuration
+
+        Loader.view PlaceholderLoader.config
+
+-}
 view : PlaceholderLoading.Config msg -> Html.Html msg
 view config =
     PlaceholderLoading.customView
