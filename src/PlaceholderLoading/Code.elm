@@ -2,7 +2,7 @@ module PlaceholderLoading.Code exposing (view)
 
 {-| Display a code loader
 
-![Code loader](../../code-loader.png)
+![Code loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/code-loader.png)
 
 
 # View

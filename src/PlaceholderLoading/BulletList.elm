@@ -2,7 +2,7 @@ module PlaceholderLoading.BulletList exposing (view)
 
 {-| Display a bullet list loader
 
-![Bullet list loader](../../bullet-list-loader.png)
+![Bullet list loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/bullet-list-loader.png)
 
 
 # View

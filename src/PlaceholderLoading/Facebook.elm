@@ -2,7 +2,7 @@ module PlaceholderLoading.Facebook exposing (view)
 
 {-| Display a Facebook loader
 
-![Facebook loader](../../facebook-loader.png)
+![Facebook loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/facebook-loader.png)
 
 
 # View

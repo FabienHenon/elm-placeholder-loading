@@ -2,7 +2,7 @@ module PlaceholderLoading.List exposing (view)
 
 {-| Display a list loader
 
-![List loader](../../list-loader.png)
+![List loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/list-loader.png)
 
 
 # View

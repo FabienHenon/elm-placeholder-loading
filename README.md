@@ -2,7 +2,7 @@
 
 Easily create placeholder loadings like Facebook's cards loading.
 
-![Facebook loader](facebook-loader.png)
+![Facebook loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/facebook-loader.png)
 
 ```
 elm install calions-app/elm-placeholder-loading
@@ -75,7 +75,7 @@ ListLoader.view
     )
 ```
 
-![Repeated list loader](repeated-list-loader.png)
+![Repeated list loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/repeated-list-loader.png)
 
 This will display the list loader 3 times. This way you can simulate a longer content to come
 
@@ -132,34 +132,34 @@ loader =
 
 This will show the following loader:
 
-![Custom loader](custom-loader.png)
+![Custom loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/custom-loader.png)
 
 ## Presets
 
 <a id="preset-facebook"></a>
 ### Facebook
 
-![Facebook loader](facebook-loader.png)
+![Facebook loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/facebook-loader.png)
 
 <a id="preset-instagram"></a>
 ### Instagram
 
-![Instagram loader](instagram-loader.png)
+![Instagram loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/instagram-loader.png)
 
 <a id="preset-bullet-list"></a>
 ### Bullet list
 
-![Bullet list loader](bullet-list-loader.png)
+![Bullet list loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/bullet-list-loader.png)
 
 <a id="preset-list"></a>
 ### List
 
-![List loader](list-loader.png)
+![List loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/list-loader.png)
 
 <a id="preset-code"></a>
 ### Code
 
-![Code loader](code-loader.png)
+![Code loader](https://github.com/calions-app/elm-placeholder-loading/blob/master/code-loader.png)
 
 ## Examples
 
